@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mapa da Mutação</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    .info-window {
+      font-family: 'Lato', sans-serif;
+      max-width: 250px;
+    }
+    .info-window img {
+      width: 100%;
+      border-radius: 4px;
+    }
+    .info-window h3 {
+      margin: 0.5em 0 0.2em 0;
+    }
+    .info-window p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+  </style>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjfEIFGky6bRHXe3pqA64fpCU5o1WIxVg"></script>
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: { lat: -15.78, lng: -47.93 },
+        styles: [
+          { elementType: "geometry", stylers: [{ color: "#d9cbb1" }] },
+          { elementType: "labels.text.fill", stylers: [{ color: "#5e4b3c" }] },
+          { elementType: "labels.text.stroke", stylers: [{ color: "#f4f1e9" }] },
+          { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#b49f8d" }] },
+          { featureType: "poi", elementType: "geometry", stylers: [{ color: "#c7b299" }] },
+          { featureType: "poi.park", elementType: "geometry.fill", stylers: [{ color: "#b6a186" }] },
+          { featureType: "road", elementType: "geometry", stylers: [{ color: "#a58f77" }] },
+          { featureType: "road.arterial", elementType: "geometry", stylers: [{ color: "#a89574" }] },
+          { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#8d715a" }] },
+          { featureType: "water", elementType: "geometry", stylers: [{ color: "#a3cfc7" }] },
+          { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#5e807f" }] }
+        ]
+      });
+
+      const marker = new google.maps.Marker({
+        position: { lat: -16.43235, lng: -39.32208 },
+        map: map,
+        title: "Gavião Real",
+        icon: {
+          url: "https://i.imgur.com/um4apUD.png",
+          scaledSize: new google.maps.Size(40, 55)
+        }
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <div class="info-window">
+            <img src="https://i.imgur.com/NemXxGp.jpeg" alt="Gavião Real" />
+            <h3>Gavião Real</h3>
+            <p>O gavião-real habita as extensas florestas de baixada e de altitude de até 2000 m. Embora possa ocorrer em pequenos fragmentos que tenham boa disponibilidade de presas. É uma ave de hábitos bem discretos. Normalmente pousa entre as folhagens, e raramente voa acima do dossel ou em áreas abertas.</p>
+          </div>
+        `
+      });
+
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+    }
+
+    window.onload = initMap;
+  </script>
+</head>
+<body>
+  <div id="map"></div>
+</body>
+</html>
