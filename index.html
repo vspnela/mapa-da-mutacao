@@ -36,7 +36,7 @@
     function initMap() {
       const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 5,
-        center: { lat: -15.78, lng: -47.93 },
+        center: { lat: -16.0, lng: -44.0 },
         styles: [
           { elementType: "geometry", stylers: [{ color: "#d9cbb1" }] },
           { elementType: "labels.text.fill", stylers: [{ color: "#5e4b3c" }] },
@@ -52,28 +52,76 @@
         ]
       });
 
-      const marker = new google.maps.Marker({
-        position: { lat: -16.43235, lng: -39.32208 },
-        map: map,
-        title: "Gavião Real",
-        icon: {
-          url: "https://i.imgur.com/um4apUD.png",
-          scaledSize: new google.maps.Size(40, 55)
+      const markersData = [
+        {
+          position: { lat: -15.169557117163155, lng: -39.09107675749346 },
+          title: "Perereca-de-bromélia",
+          icon: "https://i.imgur.com/oNyw0fr.png",
+          image: "https://i.imgur.com/NemXxGp.jpeg",
+          html: `<h3>Perereca-de-bromélia</h3>
+          <p><strong>Habitat atual:</strong> Florestas úmidas da Mata Atlântica, em bromélias que acumulam água nos galhos das árvores.</p>
+          <p><strong>Mudanças no habitat:</strong> Seca prolongada, perda de bromélias e fragmentação da floresta reduzem os microambientes úmidos.</p>
+          <p><strong>Hábitos e anatomia:</strong> Pequena, noturna, vive e se reproduz nas bromélias. Dedos aderentes, pele fina e úmida.</p>
+          <p><strong>Adaptações especulativas:</strong> Pele que retém umidade, olhos com filtro solar, dedos magnéticos para novas superfícies e uso de bromélias artificiais.</p>`
+        },
+        {
+          position: { lat: -16.42507378292464, lng: -39.30533778870766 },
+          title: "Gavião-real",
+          icon: "https://i.imgur.com/um4apUD.png",
+          image: "https://i.imgur.com/ADTxO18.jpeg",
+          html: `<h3>Gavião-real</h3>
+          <p><strong>Habitat atual:</strong> Florestas tropicais densas da Mata Atlântica, com grandes árvores onde constrói ninhos e observa presas.</p>
+          <p><strong>Mudanças previstas:</strong> Fragmentação florestal, perda de árvores altas e substituição por paisagens urbanas ou degradadas.</p>
+          <p><strong>Hábitos e anatomia:</strong> Ave de rapina solitária, de grande porte, com garras longas e forte musculatura.</p>
+          <p><strong>Adaptações especulativas:</strong> Asas encurtadas, sensores auditivos para ambientes ruidosos, exoesqueleto leve para proteção.</p>`
+        },
+        {
+          position: { lat: -23.336130511659636, lng: -45.14344521508573 },
+          title: "Borboleta-cauda-de-andorinha",
+          icon: "https://i.imgur.com/rdylK2H.png",
+          image: "https://i.imgur.com/xRcKbyn.jpeg",
+          html: `<h3>Borboleta-cauda-de-andorinha</h3>
+          <p><strong>Habitat atual:</strong> Florestas úmidas da Mata Atlântica, em bordas e clareiras com plantas hospedeiras.</p>
+          <p><strong>Mudanças previstas:</strong> Perda de vegetação nativa, aumento de temperatura e radiação solar direta.</p>
+          <p><strong>Hábitos e anatomia:</strong> Borboleta de grande porte, ativa durante o dia, com cauda nas asas posteriores.</p>
+          <p><strong>Adaptações especulativas:</strong> Asas com microescamas fotossensíveis, pernas com ganchos para superfícies urbanas, sensores de poluição.</p>`
+        },
+        {
+          position: { lat: -22.4864, lng: -43.0939 },
+          title: "Lambari-listrado",
+          icon: "https://i.imgur.com/eK0gl5w.png",
+          image: "https://i.imgur.com/4ASiwGd.jpeg",
+          html: `<h3>Lambari-listrado</h3>
+          <p><strong>Habitat atual:</strong> Riachos e córregos de água limpa e sombreada na Mata Atlântica de encosta.</p>
+          <p><strong>Mudanças previstas:</strong> Assoreamento, aquecimento da água, poluição e perda de oxigênio.</p>
+          <p><strong>Hábitos e anatomia:</strong> Peixe pequeno, listrado, onívoro e ativo durante o dia.</p>
+          <p><strong>Adaptações especulativas:</strong> Brânquias com filtros para microplásticos, sensores térmicos e mudança de hábitos para águas turvas.</p>`
         }
-      });
+      ];
 
-      const infoWindow = new google.maps.InfoWindow({
-        content: `
-          <div class="info-window">
-            <img src="https://i.imgur.com/NemXxGp.jpeg" alt="Gavião Real" />
-            <h3>Gavião Real</h3>
-            <p>O gavião-real habita as extensas florestas de baixada e de altitude de até 2000 m. Embora possa ocorrer em pequenos fragmentos que tenham boa disponibilidade de presas. É uma ave de hábitos bem discretos. Normalmente pousa entre as folhagens, e raramente voa acima do dossel ou em áreas abertas.</p>
-          </div>
-        `
-      });
+      markersData.forEach(data => {
+        const marker = new google.maps.Marker({
+          position: data.position,
+          map,
+          title: data.title,
+          icon: {
+            url: data.icon,
+            scaledSize: new google.maps.Size(40, 55)
+          }
+        });
 
-      marker.addListener("click", () => {
-        infoWindow.open(map, marker);
+        const infoWindow = new google.maps.InfoWindow({
+          content: `
+            <div class="info-window">
+              <img src="${data.image}" alt="${data.title}" />
+              ${data.html}
+            </div>
+          `
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
       });
     }
 
